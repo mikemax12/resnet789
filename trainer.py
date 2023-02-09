@@ -87,10 +87,10 @@ data_transforms = {
 """Setting up the data loaders"""
 
 # Load the datasets with ImageFolder
-image_datasets = {x: datasets.ImageFolder(dirs[x],   transform=data_transforms[x]) for x in ['train', 'valid', 'test']}
+image_datasets = {x: datasets.ImageFolder(dirs[x],   transform=data_transforms[x]) for x in ['train']}
 # load the data into batches
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16, shuffle=True) for x in ['train', 'valid', 'test']}
-dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'valid', 'test']}
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16, shuffle=True) for x in ['train']}
+dataset_sizes = {x: len(image_datasets[x]) for x in ['train']}
 
 """Setting up the data loaders"""
 '''
@@ -1163,7 +1163,7 @@ def train_model(model, criteria, optimizer, scheduler,
         print('-' * 10)
 
         # Each epoch has a training and validation phase
-        for phase in ['train', 'valid']:
+        for phase in ['train']:
             if phase == 'train':
                 scheduler.step()
                 model.train()  # Set model to training mode
