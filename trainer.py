@@ -23,7 +23,7 @@ parser.add_argument('filename')
 args = parser.parse_args()
 print(args.filename)
 import os
-
+import torchvision
 import time
 import json
 import copy
@@ -87,6 +87,14 @@ data_transforms = {
 """Setting up the data loaders"""
 
 # Load the datasets with ImageFolder
+image_datasets = {x: datasets.ImageFolder(dirs[x],   transform=data_transforms[x]) for x in ['train', 'valid', 'test']}
+# load the data into batches
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16, shuffle=True) for x in ['train', 'valid', 'test']}
+dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'valid', 'test']}
+
+"""Setting up the data loaders"""
+'''
+# Load the datasets with ImageFolder
 train_dataset = torchvision.datasets.ImageFolder(root = train_dir, transform = data_transforms['train'])
 test_dataset = torchvision.datasets.ImageFolder(root = test_dir, transform = data_transforms['test'])
 val_dataset = torchvision.datasets.ImageFolder(root = valid_dir, transform = data_transforms['valid'])
@@ -96,7 +104,7 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16, 
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'valid', 'test']}
 
 """Getting the class labels"""
-'''
+
 from os import listdir
 from os.path import isfile, join
 onlyfiles = [f for f in listdir(train_dir) if isfile(join(train_dir, f))]
