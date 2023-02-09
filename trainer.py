@@ -17,6 +17,13 @@ print ("current pytorch version is: ", torch.__version__)
 import PIL
 print ("current pillow version is: ", PIL.__version__)
 
+import argparse
+parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
+parser.add_argument('filename')
+args = parser.parse_args()
+print(args.filename)
+import os
+
 import time
 import json
 import copy
@@ -1116,12 +1123,7 @@ model
 """Setting up the directories to read the data"""
 
 #data_dir = 'flower_data'
-import argparse
-parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
-parser.add_argument('filename')
-args = parser.parse_args()
-print(args.filename)
-import os
+
  
 #unfreezing the model parameters
 
